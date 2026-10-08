@@ -207,61 +207,61 @@ class Employee_Payroll_System:
     # LOAD RECORD FROM FILE
     # ------------------------------------------------------        
    
-def load_payroll(self):
-
-    try:
-        with open("employee.csv", "r", newline="") as em:
-
-            reader = csv.reader(em)
-
-            # Skip CSV header
-            next(reader, None)
-
-            for data in reader:
-
-                if len(data) != 8:
-                    continue
-
-                employee_name = data[0].strip()
-                employee_id = data[1].strip()
-
-                if not employee_name or not employee_id:
-                    continue
-
-                # Check duplicate employee ID
-                if any(
-                    employee.get_employee_id() == employee_id
-                    for employee in self.employees
-                ):
-                    continue
-
-                try:
-                    employee_basic_salary = float(data[2])
-
-                    if not math.isfinite(employee_basic_salary):
+    def load_payroll(self):
+    
+        try:
+            with open("employee.csv", "r", newline="") as em:
+    
+                reader = csv.reader(em)
+    
+                # Skip CSV header
+                next(reader, None)
+    
+                for data in reader:
+    
+                    if len(data) != 8:
                         continue
-
-                    if employee_basic_salary <= 0:
+    
+                    employee_name = data[0].strip()
+                    employee_id = data[1].strip()
+    
+                    if not employee_name or not employee_id:
                         continue
-
-                except ValueError:
-                    continue
-
-                employee = Department(
-                    employee_name,
-                    employee_id,
-                    employee_basic_salary
-                )
-
-                self.employees.append(employee)
-
-        print("Previous Data Loaded Successfully...")
-
-    except FileNotFoundError:
-        print("No Previous Record Found.")
-
-    except (OSError, csv.Error):
-        print("Error While Reading File...")
+    
+                    # Check duplicate employee ID
+                    if any(
+                        employee.get_employee_id() == employee_id
+                        for employee in self.employees
+                    ):
+                        continue
+    
+                    try:
+                        employee_basic_salary = float(data[2])
+    
+                        if not math.isfinite(employee_basic_salary):
+                            continue
+    
+                        if employee_basic_salary <= 0:
+                            continue
+    
+                    except ValueError:
+                        continue
+    
+                    employee = Department(
+                        employee_name,
+                        employee_id,
+                        employee_basic_salary
+                    )
+    
+                    self.employees.append(employee)
+    
+            print("Previous Data Loaded Successfully...")
+    
+        except FileNotFoundError:
+            print("No Previous Record Found.")
+    
+        except (OSError, csv.Error):
+            print("Error While Reading File...")
 
         
                     
