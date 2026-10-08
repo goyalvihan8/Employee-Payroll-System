@@ -2,6 +2,7 @@ from datetime import datetime
 from abc import ABC,abstractmethod
 import csv
 import os
+import math
 
 # ==========================================================
 # 1. ABSTRACT BASE CLASS
